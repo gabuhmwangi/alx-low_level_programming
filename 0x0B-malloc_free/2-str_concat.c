@@ -2,63 +2,44 @@
 #include <stdlib.h>
 
 /**
- * _strlen - gets string length
- * @string: string
- * Return: length (int)
+ * str_concat - Concatenates two strings.
+ * @s1: The string to be concatenated upon.
+ * @s2: The string to be concatenated to s1.
+ *
+ * Return: If concatenation fails - NULL.
+ *         Otherwise - a pointer the newly-allocated space in memory
+ *                        containing the concatenated strings.
  */
-
-int _strlen(char *string)
+char *str_concat(char *s1, char *s2)
 {
-	int length;
-	while (string[length] != '\0')
-	{
-		length++;
-	}
-	return (length);
-}
+	char *concat_str;
+	int index, concat_index = 0, len = 0;
 
-/**
- * string_nconcat - concatenates two strings
- * @s1: string 1
- * @s2: string 2
- * @n: integer that determines whether entire s2 string will be used
- * Return: pointer to allocated memory corresponding with the string
- */
-char *string_nconcat(char *s1, char *s2, unsigned int n)
-{
-	unsigned int length1, length2, lengthc, i, j;
-	char *str;
+
 
 	if (s1 == NULL)
 		s1 = "";
+
 	if (s2 == NULL)
 		s2 = "";
-	length1 = _strlen(s1);
-	length2 = _strlen(s2);
 
-	if (n >= length2)
-		lengthc = length1 + length2 + 1;
-	else
-	{
-		lengthc = length1 + n + 1;
-		length2 = n;
-	}
-	str = malloc(lengthc);
-	if (str == NULL)
+	for (index = 0; s1[index] || s2[index]; index++)
+		len++;
+
+
+	concat_str = malloc(sizeof(char) * len);
+
+
+	if (concat_str == NULL)
 		return (NULL);
 
-	i = 0;
-	while (i < length1)
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (j < length2)
-	{
-		str[i + j] = s2[j];
-		j++;
-	}
-	str[i + j] = '\0';
-	return (str);
+	for (index = 0; s1[index]; index++)
+		concat_str[concat_index++] = s1[index];
+
+
+	for (index = 0; s2[index]; index++)
+		concat_str[concat_index++] = s2[index];
+
+
+	return (concat_str);
 }
